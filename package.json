@@ -1,12 +1,12 @@
 {
   "name": "@gallolabs/docker-logs-watcher",
-  "version": "0.1.1",
-  "description": "Remote events emitter",
+  "version": "0.1.2",
+  "description": "Javascript Docker logs watcher",
   "main": "dist/src/index.js",
   "scripts": {
     "build": "rm -Rf dist && tsc",
     "test": "npm run build && npx c8 --all --src 'src' --exclude '*/*test*' --report-dir=/tmp/nyc mocha 'dist/test/*test*.js'",
-    "deploy": "npm run test && rm dist/*test* && npm login && trap 'npm logout' EXIT && release-it --no-git.requireCleanWorkingDir"
+    "deploy": "npm run test && rm -R dist/test && npm login && trap 'npm logout' EXIT && release-it --no-git.requireCleanWorkingDir"
   },
   "type": "module",
   "author": "",
