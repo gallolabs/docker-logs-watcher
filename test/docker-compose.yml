@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  test:
+    restart: unless-stopped
+    image: node:16-alpine
+    volumes:
+      - ./error.js:/app/error.js
+    command: node /app/error.js
+    logging:
+      driver: journald
