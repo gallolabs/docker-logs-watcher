@@ -27,7 +27,7 @@ THIS IS NOT a tool to collect logs. I tested some tools like logspout, interesti
 ## How to use
 
 ```typescript
-import { DockerLogs } from '@gallofeliz/docker-logs'
+import { DockerLogs } from '@gallolabs/docker-logs-watcher'
 
 const abortController = new AbortController
 
