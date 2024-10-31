@@ -40,7 +40,7 @@ dockerLogs.watch({
         const name = log.container.compose
             ? log.container.compose.project + '/' + log.container.compose.service
             : log.container.name
-        console.log(log.stream.toUpperCase(), log.date, '-', name, '-', log.message)
+        console.log(log.stream.toUpperCase(), log.date.toISOString(), '-', name, '-', log.message)
     },
     abortSignal: abortController.signal
 })
@@ -49,7 +49,7 @@ dockerLogs.watch({
     containerMatches: { compose: { project: 'special' } },
     stream: 'stderr',
     onLog(log) {
-        console.log('SPECIAL STDERR', log.date, '-', log.container.name, '-', log.message)
+        console.log('SPECIAL STDERR', log.date.toISOString(), '-', log.container.name, '-', log.message)
     },
     abortSignal: abortController.signal
 })
@@ -75,11 +75,11 @@ setTimeout(() => { abortController.abort() }, 30000)
 
 will produce with my tests (a docker compose with a a micro script that says start, then work then crashes with badadoom to test last log on crash (bug with Docker in some versions)) :
 ```
-STDERR 2023-07-07T23:49:05.916Z - docker-logs/test - Error: Badaboom
-STDOUT 2023-07-07T23:49:06.542Z - docker-logs/test - start
-SPECIAL STDERR 2023-07-07T23:49:14.062Z - very-special-container - ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-STDOUT 2023-07-07T23:49:16.555Z - docker-logs/test - work
-STDERR 2023-07-07T23:49:26.568Z - docker-logs/test - Error: Badaboom
-STDOUT 2023-07-07T23:49:27.331Z - docker-logs/test - start
+STDERR 2023-07-07T23:49:05.916366512Z - docker-logs/test - Error: Badaboom
+STDOUT 2023-07-07T23:49:06.542877623Z - docker-logs/test - start
+SPECIAL STDERR 2023-07-07T23:49:14.062961523Z - very-special-container - ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
+STDOUT 2023-07-07T23:49:16.555776232Z - docker-logs/test - work
+STDERR 2023-07-07T23:49:26.568193389Z - docker-logs/test - Error: Badaboom
+STDOUT 2023-07-07T23:49:27.331012301Z - docker-logs/test - start
 ```
 
